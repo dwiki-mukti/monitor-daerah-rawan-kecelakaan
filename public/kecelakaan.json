@@ -11,7 +11,7 @@
             "type": "Feature",
             "properties": {
                 "id": "ak16994521",
-                "title": "Tubrukan truk dan fuso"
+                "chronology": "Tubrukan truk dan fuso"
             },
             "geometry": {
                 "type": "Point",
@@ -26,7 +26,7 @@
             "type": "Feature",
             "properties": {
                 "id": "ak16994521",
-                "title": "Kecelakaan tunggal motor vespa"
+                "chronology": "Kecelakaan tunggal motor vespa"
             },
             "geometry": {
                 "type": "Point",
@@ -41,7 +41,7 @@
             "type": "Feature",
             "properties": {
                 "id": "ak16994521",
-                "title": "Klutuk njungkir"
+                "chronology": "Klutuk njungkir"
             },
             "geometry": {
                 "type": "Point",
