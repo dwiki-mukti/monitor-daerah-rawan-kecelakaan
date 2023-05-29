@@ -6,7 +6,7 @@ import { useState } from "react"
 
 
 export async function getServerSideProps() {
-  const res = await fetch('http://localhost:3000/kecelakaan.json');
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/kecelakaan.json`);
   const dataSource = await res.json();
   return { props: { dataSource } };
 }
