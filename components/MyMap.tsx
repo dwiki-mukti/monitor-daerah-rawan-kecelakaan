@@ -7,16 +7,16 @@ interface typeMyMapPharams {
     style?: CSSProperties,
     DataSource: any,
     setDataSource: Dispatch<SetStateAction<any>>,
-    setNewIncident: Dispatch<SetStateAction<any>>,
-    NewIncident: any
+    setIncidentSelected: Dispatch<SetStateAction<any>>,
+    IncidentSelected: any
 }
 
 export default function MyMap({
     style,
     DataSource,
     setDataSource,
-    setNewIncident,
-    NewIncident
+    setIncidentSelected,
+    IncidentSelected
 }: typeMyMapPharams) {
 
     return (
@@ -46,7 +46,7 @@ export default function MyMap({
                     }
                 }
 
-                setNewIncident(newPoint)
+                setIncidentSelected(newPoint)
 
             }}
             onLoad={(ev) => {
@@ -87,7 +87,7 @@ export default function MyMap({
                 // event click uncluster/micro point
                 map.on('click', 'unclustered-point', (e) => {
                     const feature: any = e.features?.[0];
-                    setNewIncident({
+                    setIncidentSelected({
                         ...feature,
                         geometry: feature.geometry
                     })
@@ -106,10 +106,10 @@ export default function MyMap({
                 <Layer {...clusterLayer} />
                 <Layer {...clusterCountLayer} />
                 <Layer {...unclusteredPointLayer} />
-                {NewIncident && (
+                {IncidentSelected && (
                     <Marker
-                        latitude={NewIncident.geometry?.coordinates?.[1]}
-                        longitude={NewIncident.geometry?.coordinates?.[0]}
+                        latitude={IncidentSelected.geometry?.coordinates?.[1]}
+                        longitude={IncidentSelected.geometry?.coordinates?.[0]}
                         anchor="bottom"
                     >
                         <img src="/vercel.svg" style={{ width: "100px" }} />

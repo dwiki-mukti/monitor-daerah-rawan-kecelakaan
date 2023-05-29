@@ -3,54 +3,54 @@ import { Dispatch, SetStateAction } from "react"
 
 
 interface typeFormIncident {
-    NewIncident: any,
-    setNewIncident: Dispatch<SetStateAction<any>>,
+    IncidentSelected: any,
+    setIncidentSelected: Dispatch<SetStateAction<any>>,
     DataSource: any,
     setDataSource: Dispatch<SetStateAction<any>>
 }
 
 export default function FormIncident({
-    NewIncident,
-    setNewIncident,
+    IncidentSelected,
+    setIncidentSelected,
     DataSource,
     setDataSource
 }: typeFormIncident) {
 
     const onDeletePoint = () => {
-        fetch(`/api/delete-point/${NewIncident?.properties?.id}`, {
+        fetch(`/api/delete-point/${IncidentSelected?.properties?.id}`, {
             method: 'DELETE'
         }).then((res) => {
             if (res.status == 200) {
                 setDataSource((prev: any) => {
-                    const newFeatures = prev.features.filter((feature: any) => (feature?.properties?.id != NewIncident?.properties?.id))
+                    const newFeatures = prev.features.filter((feature: any) => (feature?.properties?.id != IncidentSelected?.properties?.id))
                     return ({
                         ...prev,
                         features: newFeatures
                     })
                 })
-                setNewIncident(undefined)
+                setIncidentSelected(undefined)
             }
         })
     }
 
     const onCreateNewPoint = () => {
-        var newIncidentGonnaSend: any;
-        if (!Boolean(NewIncident?.properties?.id)) {
-            newIncidentGonnaSend = {
-                ...NewIncident,
+        var IncidentSelectedGonnaSend: any;
+        if (!Boolean(IncidentSelected?.properties?.id)) {
+            IncidentSelectedGonnaSend = {
+                ...IncidentSelected,
                 properties: {
-                    ...(NewIncident.properties),
+                    ...(IncidentSelected.properties),
                     id: Date.now()
                 }
             }
         } else {
-            newIncidentGonnaSend = NewIncident
+            IncidentSelectedGonnaSend = IncidentSelected
         }
 
         fetch('/api/save-point', {
             method: 'POST',
             body: JSON.stringify({
-                incicdent: newIncidentGonnaSend
+                incicdent: IncidentSelectedGonnaSend
             }),
             headers: {
                 ['Content-Type']: 'application/json'
@@ -58,26 +58,26 @@ export default function FormIncident({
         }).then((res) => {
             if (res.status == 200) {
                 var newFeature: any
-                if (!Boolean(NewIncident?.properties?.id)) {
+                if (!Boolean(IncidentSelected?.properties?.id)) {
                     newFeature = [
                         ...(DataSource.features),
-                        newIncidentGonnaSend
+                        IncidentSelectedGonnaSend
                     ];
                 } else {
                     // filter old data
-                    const newFeatures = DataSource.features.filter((feature: any) => (feature?.properties?.id != newIncidentGonnaSend?.properties?.id));
+                    const newFeatures = DataSource.features.filter((feature: any) => (feature?.properties?.id != IncidentSelectedGonnaSend?.properties?.id));
 
                     // add new data
                     newFeature = [
                         ...(newFeatures),
-                        newIncidentGonnaSend
+                        IncidentSelectedGonnaSend
                     ]
                 }
                 setDataSource((prev: any) => ({
                     ...prev,
                     features: newFeature
                 }))
-                setNewIncident(newIncidentGonnaSend)
+                setIncidentSelected(IncidentSelectedGonnaSend)
             }
         })
     }
@@ -95,9 +95,9 @@ export default function FormIncident({
                         id="long"
                         name="long"
                         type="number"
-                        value={NewIncident?.geometry?.coordinates[0] ?? ''}
+                        value={IncidentSelected?.geometry?.coordinates[0] ?? ''}
                         onChange={(e) => {
-                            setNewIncident((prev: any) => ({
+                            setIncidentSelected((prev: any) => ({
                                 ...prev,
                                 geometry: {
                                     ...(prev.geometry),
@@ -121,9 +121,9 @@ export default function FormIncident({
                         id="lat"
                         name="lat"
                         type="number"
-                        value={NewIncident?.geometry?.coordinates[1] ?? ''}
+                        value={IncidentSelected?.geometry?.coordinates[1] ?? ''}
                         onChange={(e) => {
-                            setNewIncident((prev: any) => ({
+                            setIncidentSelected((prev: any) => ({
                                 ...prev,
                                 geometry: {
                                     ...(prev.geometry),
@@ -147,9 +147,9 @@ export default function FormIncident({
                 <textarea
                     id="long"
                     name="long"
-                    value={NewIncident?.properties?.chronology ?? ''}
+                    value={IncidentSelected?.properties?.chronology ?? ''}
                     onChange={(e) => {
-                        setNewIncident((prev: any) => ({
+                        setIncidentSelected((prev: any) => ({
                             ...prev,
                             properties: {
                                 ...(prev.properties),
@@ -162,7 +162,7 @@ export default function FormIncident({
             </div>
             <div className="mt-6 flex justify-between gap-2">
                 <div className="grow">
-                    {Boolean(NewIncident?.properties?.id) && (
+                    {Boolean(IncidentSelected?.properties?.id) && (
                         <div className="flex justify-between">
                             <div
                                 onClick={onDeletePoint}

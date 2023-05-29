@@ -1,6 +1,18 @@
+import { Dispatch, SetStateAction } from "react"
+
+
+interface typeTableIncidentPharams {
+    DataSource: any,
+    IncidentSelected: any,
+    setIncidentSelected: Dispatch<SetStateAction<any>>
+}
+
+
 export default function TableIncident({
-    DataSource
-}: { DataSource: any }) {
+    DataSource,
+    IncidentSelected,
+    setIncidentSelected
+}: typeTableIncidentPharams) {
     return (
         <div className="max-h-[34rem] overflow-auto">
             <table className="w-full">
@@ -16,7 +28,13 @@ export default function TableIncident({
                     <tbody>
                         {
                             (DataSource.features).map((feature: any, index: number) => (
-                                <tr key={index} className="border-t cursor-pointer hover:bg-gray-100">
+                                <tr
+                                    key={index}
+                                    onClick={() => {
+                                        setIncidentSelected(feature)
+                                    }}
+                                    className={`border-t cursor-pointer hover:bg-gray-100 ${(feature?.properties?.id == IncidentSelected?.properties?.id) ? 'bg-blue-500/20' : ''}`}
+                                >
                                     <td className="p-3 text-center">{index + 1}</td>
                                     <td className="p-3 ">{feature?.properties?.chronology}</td>
                                     <td className="p-3 text-center">{feature?.geometry?.coordinates[0]}, {feature?.geometry?.coordinates[1]}</td>

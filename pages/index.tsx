@@ -14,7 +14,7 @@ export async function getServerSideProps() {
 
 export default function Home({ dataSource }: any) {
   const [DataSource, setDataSource] = useState(dataSource)
-  const [NewIncident, setNewIncident] = useState()
+  const [IncidentSelected, setIncidentSelected] = useState()
 
 
   return (
@@ -28,19 +28,21 @@ export default function Home({ dataSource }: any) {
           <div className="col-span-3">
             <TableIncident
               DataSource={DataSource}
+              IncidentSelected={IncidentSelected}
+              setIncidentSelected={setIncidentSelected}
             />
           </div>
           <div className="col-span-2">
             <MyMap
               DataSource={DataSource}
               setDataSource={setDataSource}
-              setNewIncident={setNewIncident}
-              NewIncident={NewIncident}
+              setIncidentSelected={setIncidentSelected}
+              IncidentSelected={IncidentSelected}
               style={{ width: "100%", height: '20rem', borderRadius: '1rem', overflow: "hidden" }}
             />
             <FormIncident
-              setNewIncident={setNewIncident}
-              NewIncident={NewIncident}
+              setIncidentSelected={setIncidentSelected}
+              IncidentSelected={IncidentSelected}
               setDataSource={setDataSource}
               DataSource={DataSource}
             />
