@@ -100,11 +100,11 @@ export default function FormIncident({
                             setIncidentSelected((prev: any) => ({
                                 ...prev,
                                 geometry: {
-                                    ...(prev.geometry),
+                                    ...(prev?.geometry),
                                     coordinates: [
                                         e.target.value,
-                                        (prev.geometry?.coordinates?.[1]),
-                                        (prev.geometry?.coordinates?.[2]),
+                                        (prev?.geometry?.coordinates?.[1] ?? 0),
+                                        (prev?.geometry?.coordinates?.[2]),
                                     ]
                                 }
                             }))
@@ -126,11 +126,11 @@ export default function FormIncident({
                             setIncidentSelected((prev: any) => ({
                                 ...prev,
                                 geometry: {
-                                    ...(prev.geometry),
+                                    ...(prev?.geometry),
                                     coordinates: [
-                                        (prev.geometry?.coordinates?.[0]),
+                                        (prev?.geometry?.coordinates?.[0] ?? 0),
                                         e.target.value,
-                                        (prev.geometry?.coordinates?.[2]),
+                                        (prev?.geometry?.coordinates?.[2]),
                                     ]
                                 }
                             }))
@@ -152,7 +152,7 @@ export default function FormIncident({
                         setIncidentSelected((prev: any) => ({
                             ...prev,
                             properties: {
-                                ...(prev.properties),
+                                ...(prev?.properties),
                                 chronology: e.target.value
                             }
                         }))
