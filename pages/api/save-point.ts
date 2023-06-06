@@ -4,12 +4,7 @@ import fs from 'fs';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     // check method
-    if (req.method != "POST") {
-        return res.status(200).json({
-            message: 'method not allowed',
-            currentMethod: req.method
-        });
-    }
+    if (req.method != "POST") return res.status(405).end();
 
     // get body req
     const { incicdent } = req.body;
@@ -31,13 +26,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // sync data
     fs.writeFile('./public/kecelakaan.json', JSON.stringify(newData), err => {
-        if (err) throw { err };
+        if (err) throw err;
     });
-    // return res.status(200).json({
-    //     message: 'method allowed',
-    //     currentMethod: req.method
-    // });
-
+    
     // repsonse
     res.status(200).json({
         message: "Success"
