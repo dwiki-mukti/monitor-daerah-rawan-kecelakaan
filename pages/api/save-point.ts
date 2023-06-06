@@ -16,10 +16,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // get old data
     const data = require('../../public/kecelakaan.json');
-    return res.status(200).json({
-        message: 'method allowed',
-        currentMethod: req.method
-    });
 
     // filter old data
     const newFeatures = data.features.filter((feature: any) => (feature?.properties?.id != incicdent?.properties?.id));
@@ -36,6 +32,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // sync data
     fs.writeFile('./public/kecelakaan.json', JSON.stringify(newData), err => {
         if (err) throw err;
+    });
+    return res.status(200).json({
+        message: 'method allowed',
+        currentMethod: req.method
     });
 
     // repsonse
