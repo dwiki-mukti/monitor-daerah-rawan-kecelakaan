@@ -30,13 +30,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     };
 
     // sync data
-    return res.status(200).json({
-        message: 'method allowed',
-        currentMethod: req.method
-    });
     fs.writeFile('./public/kecelakaan.json', JSON.stringify(newData), err => {
-        if (err) throw err;
+        if (err) throw { err };
     });
+    // return res.status(200).json({
+    //     message: 'method allowed',
+    //     currentMethod: req.method
+    // });
 
     // repsonse
     res.status(200).json({
