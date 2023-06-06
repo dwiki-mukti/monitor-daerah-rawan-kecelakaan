@@ -4,7 +4,7 @@ import fs from 'fs';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     // check method
-    if (req.method !== "DELETE") return res.status(405).end();
+    if (req.method != "DELETE") return res.status(405).end();
 
     // get params
     const { id } = req.query
