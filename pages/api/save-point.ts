@@ -10,16 +10,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             currentMethod: req.method
         });
     }
-    return res.status(200).json({
-        message: 'method allowed',
-        currentMethod: req.method
-    });
 
     // get body req
     const { incicdent } = req.body;
 
     // get old data
     const data = require('../../public/kecelakaan.json');
+    return res.status(200).json({
+        message: 'method allowed',
+        currentMethod: req.method
+    });
 
     // filter old data
     const newFeatures = data.features.filter((feature: any) => (feature?.properties?.id != incicdent?.properties?.id));
