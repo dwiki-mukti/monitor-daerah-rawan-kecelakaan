@@ -4,12 +4,17 @@ import fs from 'fs';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     // check method
-    // if (req.method != "POST") {
+    if (req.method != "POST") {
         return res.status(400).json({
             message: 'Just allow method POST',
             currentMethod: req.method
         });
-    // }
+    } else {
+        return res.status(200).json({
+            message: 'method POST allowed',
+            currentMethod: req.method
+        });
+    }
 
     // get body req
     const { incicdent } = req.body;
